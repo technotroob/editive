@@ -609,3 +609,64 @@ html { scroll-behavior: smooth; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .rv { opacity: 1; transform: none; }
 }
+
+/* ── EDITOR TOP FEATURE BUTTONS ───────────────────────── */
+.edv-feature-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.edv-feature-btn--unlock {
+  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 2px 14px rgba(139, 92, 246, 0.4);
+}
+.edv-feature-btn--unlock:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(139, 92, 246, 0.6);
+}
+.edv-feature-btn--unlock:active {
+  transform: translateY(0);
+}
+.edv-feature-btn--reframe {
+  background: var(--bg-panel-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+}
+.edv-feature-btn--reframe:hover {
+  border-color: var(--accent-ai);
+  color: var(--accent-ai);
+  background: var(--bg-active);
+}
+.edv-feature-btn--export {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+.edv-feature-btn--export:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--bg-panel-hover);
+}
+@media (max-width: 1180px) {
+  .edv-feature-btn__label { display: none; }
+  .edv-feature-btn { padding: 7px 10px; }
+}
+
+/* ── EDITOR SIDEBAR SCROLL ────────────────────────────── */
+.edv-sidebar-scroll { scrollbar-width: thin; scrollbar-color: var(--border-medium) transparent; }
+.edv-sidebar-scroll::-webkit-scrollbar { width: 6px; }
+.edv-sidebar-scroll::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 3px; }
+.edv-sidebar-scroll::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+.edv-sidebar-scroll::-webkit-scrollbar-track { background: transparent; }

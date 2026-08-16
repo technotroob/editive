@@ -9,6 +9,8 @@ import {
   Loader2,
   AlertCircle,
   ChevronDown,
+  Wand2,
+  ScanLine,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { IconButton } from '../ui/IconButton';
@@ -28,6 +30,8 @@ export interface TopBarProps {
   onZoomOut: () => void;
   onResetZoom: () => void;
   onOpenExportModal: () => void;
+  onOpenUnlockModal: () => void;
+  onOpenReframeModal: () => void;
   onGoToDashboard: () => void;
 }
 
@@ -44,6 +48,8 @@ export const TopBar: React.FC<TopBarProps> = ({
   onZoomOut,
   onResetZoom,
   onOpenExportModal,
+  onOpenUnlockModal,
+  onOpenReframeModal,
   onGoToDashboard,
 }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -290,13 +296,34 @@ export const TopBar: React.FC<TopBarProps> = ({
         />
       </div>
 
-      {/* ── RIGHT: Export ── */}
+      {/* ── RIGHT: Unlock Design · Smart Reframe · Export ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          className="edv-feature-btn edv-feature-btn--unlock"
+          onClick={onOpenUnlockModal}
+          title="Unlock Design — reconstruct a flat image into editable layers"
+        >
+          <Wand2 size={14} />
+          <span className="edv-feature-btn__label">Unlock Design</span>
+        </button>
+
+        <button
+          type="button"
+          className="edv-feature-btn edv-feature-btn--reframe"
+          onClick={onOpenReframeModal}
+          title="Smart Reframe — adapt your design to any format"
+        >
+          <ScanLine size={14} />
+          <span className="edv-feature-btn__label">Smart Reframe</span>
+        </button>
+
         <Button
           variant="primary"
           size="sm"
           icon={<Download size={13} />}
           onClick={onOpenExportModal}
+          title="Export your design"
         >
           Export
         </Button>

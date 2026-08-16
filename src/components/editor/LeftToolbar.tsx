@@ -10,7 +10,6 @@ import {
   ScanLine,
   Crop,
   Palette,
-  Wand2,
   Sparkles,
 } from 'lucide-react';
 
@@ -30,13 +29,11 @@ export interface LeftToolbarProps {
   onActivateSelectTool: () => void;
   onActivateTool?: (tool: string) => void;
   onOpenRightTab?: (tab: 'inspector' | 'layers' | 'structure') => void;
-  onOpenUnlockModal?: () => void;
-  onOpenReframeModal?: () => void;
   onOpenMemoryModal?: () => void;
 }
 
 interface ToolItem {
-  id: ActiveDrawerTab | 'select' | 'crop' | 'adjust' | 'effects' | 'layers' | 'structure' | 'unlock' | 'reframe' | 'memory' | 'align';
+  id: ActiveDrawerTab | 'select' | 'crop' | 'adjust' | 'effects' | 'layers' | 'structure' | 'memory' | 'align';
   label: string;
   description?: string;
   icon: React.ReactNode;
@@ -78,10 +75,8 @@ const sections: ToolSection[] = [
   {
     label: 'Intelligence',
     tools: [
-      { id: 'unlock', label: 'Unlock Design', description: 'Reconstruct a flat image', icon: <Wand2 size={18} color="#34D397" />, isAI: true },
-      { id: 'reframe', label: 'Smart Reframe', description: 'Adapt to any format', icon: <Layers size={18} color="#FBBF24" />, isAI: true },
-      { id: 'memory', label: 'Design Memory', description: 'Save & reuse styles', icon: <Palette size={18} color="#A78BFA" />, isAI: true },
       { id: 'ai', label: 'AI Tools', description: 'Remove BG, OCR, Upscale', icon: <Sparkles size={18} color="#60A5FA" />, isAI: true },
+      { id: 'memory', label: 'Design Memory', description: 'Save & reuse styles', icon: <Palette size={18} color="#A78BFA" />, isAI: true },
     ],
   },
 ];
@@ -98,57 +93,27 @@ export const LeftToolbar: React.FC<LeftToolbarProps> = ({
   onActivateSelectTool,
   onActivateTool,
   onOpenRightTab,
-  onOpenUnlockModal,
-  onOpenReframeModal,
   onOpenMemoryModal,
 }) => {
   return (
     <nav
+      className="edv-sidebar-scroll"
       style={{
         width: '92px',
         backgroundColor: 'var(--bg-panel)',
         borderRight: '1px solid var(--border-subtle)',
         display: 'flex',
         flexDirection: 'column',
-        padding: '12px 0 16px',
+        padding: '10px 0 14px',
         gap: 0,
         zIndex: 80,
         userSelect: 'none',
         flexShrink: 0,
+        height: '100%',
+        overflowY: 'auto',
+        overflowX: 'hidden',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginBottom: '16px',
-          paddingBottom: '12px',
-          borderBottom: '1px solid var(--border-subtle)',
-        }}
-      >
-        <div
-          style={{
-            width: '30px',
-            height: '30px',
-            borderRadius: '8px',
-            background: 'var(--grad-hero)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 900,
-            fontSize: '15px',
-            color: '#FFFFFF',
-            letterSpacing: '-0.5px',
-            flexShrink: 0,
-            boxShadow: '0 6px 18px rgba(79, 142, 247, 0.4)',
-          }}
-        >
-          E
-        </div>
-      </div>
-
       {sections.map((section, si) => (
         <div
           key={section.label}
@@ -156,6 +121,7 @@ export const LeftToolbar: React.FC<LeftToolbarProps> = ({
             display: 'flex',
             flexDirection: 'column',
             marginBottom: si < sections.length - 1 ? '4px' : 0,
+            flexShrink: 0,
           }}
         >
           <div
@@ -166,7 +132,7 @@ export const LeftToolbar: React.FC<LeftToolbarProps> = ({
               textTransform: 'uppercase',
               color: 'var(--text-muted)',
               textAlign: 'center',
-              padding: '8px 0 6px',
+              padding: '10px 0 6px',
             }}
           >
             {section.label}
@@ -204,12 +170,6 @@ export const LeftToolbar: React.FC<LeftToolbarProps> = ({
                         break;
                       case 'structure':
                         onOpenRightTab?.('structure');
-                        break;
-                      case 'unlock':
-                        onOpenUnlockModal?.();
-                        break;
-                      case 'reframe':
-                        onOpenReframeModal?.();
                         break;
                       case 'memory':
                         onOpenMemoryModal?.();

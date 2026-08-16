@@ -577,6 +577,8 @@ export default function EditorPage() {
           engineRef.current?.setZoom(1);
         }}
         onOpenExportModal={() => setIsExportModalOpen(true)}
+        onOpenUnlockModal={() => setIsUnlockModalOpen(true)}
+        onOpenReframeModal={() => setIsReframeModalOpen(true)}
         onGoToDashboard={() => router.push('/')}
       />
 
@@ -608,8 +610,6 @@ export default function EditorPage() {
             }
           }}
           onOpenRightTab={(tab) => setRightTab(tab)}
-          onOpenUnlockModal={() => setIsUnlockModalOpen(true)}
-          onOpenReframeModal={() => setIsReframeModalOpen(true)}
           onOpenMemoryModal={() => setIsMemoryModalOpen(true)}
         />
 
