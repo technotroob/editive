@@ -325,12 +325,7 @@ function MoonIcon() {
 
 export default function HomePage() {
   useEffect(() => {
-    // Allow page scrolling (global styles set overflow:hidden for the editor)
     const root = document.documentElement;
-    root.style.overflow = 'auto';
-    document.body.style.overflow = 'auto';
-    document.body.style.height = 'auto';
-
     const cleanup: (() => void)[] = [];
 
     // Theme init
@@ -423,9 +418,6 @@ export default function HomePage() {
     }
 
     return () => {
-      root.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100%';
       root.removeAttribute('data-theme');
       cleanup.forEach((fn) => fn());
       if (interval) clearInterval(interval);

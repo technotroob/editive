@@ -27,7 +27,10 @@ export class OCRSpaceService {
 
     try {
       const formData = new FormData();
-      formData.append('base64Image', imageSrc);
+      const cleanBase64 = imageSrc.includes(',')
+        ? imageSrc.substring(imageSrc.indexOf(',') + 1)
+        : imageSrc;
+      formData.append('base64Image', cleanBase64);
       formData.append('isOverlayRequired', 'true');
       formData.append('detectOrientation', 'true');
       formData.append('scale', 'true');
@@ -48,10 +51,18 @@ export class OCRSpaceService {
       clearTimeout(timeoutId);
 
       if (!res.ok) {
+        const errText = await res.text().catch(() => '');
+        console.error('OCR.space error:', res.status, errText);
+        const isRateLimit = res.status === 403 || res.status === 429;
         return {
           success: false,
           operation: 'ocr',
-          error: { code: 'PROVIDER_ERROR', message: 'OCR Service encountered an error.' },
+          error: {
+            code: isRateLimit ? 'RATE_LIMIT' : 'PROVIDER_ERROR',
+            message: isRateLimit
+              ? 'OCR rate limit reached. Please wait a moment and try again.'
+              : 'OCR Service encountered an error.',
+          },
         };
       }
 
