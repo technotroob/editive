@@ -1,0 +1,46 @@
+
+> editive-app@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.23
+   - Local:        http://localhost:3000
+   - Network:      http://26.208.208.166:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 7.3s
+ ○ Compiling / ...
+ ✓ Compiled / in 11.7s (666 modules)
+ GET / 200 in 14281ms
+ ○ Compiling /editor ...
+ ✓ Compiled /editor in 2.5s (841 modules)
+ GET /editor 200 in 3098ms
+ GET / 200 in 97ms
+ GET /editor 200 in 270ms
+   Reload env: .env.local
+ ✓ Compiled in 1877ms (841 modules)
+ GET /editor 200 in 665ms
+ ✓ Compiled in 6.4s (841 modules)
+ ✓ Compiled in 3s (841 modules)
+ ✓ Compiled in 803ms (841 modules)
+ GET /editor 200 in 789ms
+ GET /editor 200 in 80ms
+ ✓ Compiled in 2.3s (841 modules)
+ ⨯ ./src/app/editor/page.tsx
+Module parse failed: Identifier 'isProcessingAI' has already been declared (384:11)
+|         showToast('Duplicated layer', 'success');
+|     };
+>     const [isProcessingAI, setIsProcessingAI] = useState(false);
+|     const handleQuickRemoveBG = async (layer)=>{
+|         if (isProcessingAI) return;
+
+Import trace for requested module:
+./src/app/editor/page.tsx
+ ✓ Compiled in 3.3s (841 modules)
+ ✓ Compiled in 1634ms (841 modules)
+ ✓ Compiled in 1076ms (841 modules)
+ ✓ Compiled in 1569ms (841 modules)
+ ✓ Compiled in 1283ms (841 modules)
+ ✓ Compiled in 1182ms (841 modules)
+ ✓ Compiled in 1908ms (845 modules)
+ ✓ Compiled in 2s (853 modules)

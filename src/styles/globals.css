@@ -1,0 +1,565 @@
+/* ============================================================
+   EDITIVE Design System — Studio Dark
+   One accent. Precision over decoration. Built like a product.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root {
+  /* Workspace Surfaces — layered elevation */
+  --bg-workspace:       #0D1117;   /* Deepest — app bg */
+  --bg-panel:           #161B22;   /* Level 1 — sidebars */
+  --bg-panel-elevated:  #1C2230;   /* Level 2 — drawers, cards */
+  --bg-panel-hover:     #232C3E;   /* Hover state */
+  --bg-active:          #1F2D45;   /* Selected / active */
+  --bg-glass:           rgba(22, 27, 34, 0.88);
+  --bg-overlay:         rgba(0, 0, 0, 0.55);
+
+  /* Borders — never dominant */
+  --border-subtle:   #21262D;
+  --border-medium:   #30363D;
+  --border-strong:   #444C56;
+  --border-focus:    #4F8EF7;
+
+  /* Typography */
+  --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --text-primary:   #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted:     #484F58;
+  --text-on-accent: #FFFFFF;
+
+  /* ── ONE BRAND ACCENT: Electric Blue ── */
+  --accent:             #4F8EF7;
+  --accent-hover:       #3B7AF0;
+  --accent-pressed:     #2D69E0;
+  --accent-subtle:      rgba(79, 142, 247, 0.12);
+  --accent-glow:        rgba(79, 142, 247, 0.25);
+
+  /* AI / Intelligence accent — use only for AI features */
+  --accent-ai:          #A78BFA;
+  --accent-ai-subtle:   rgba(167, 139, 250, 0.10);
+  --accent-ai-glow:     rgba(167, 139, 250, 0.20);
+
+  /* Status */
+  --status-success: #3FB950;
+  --status-warning: #D29922;
+  --status-error:   #F85149;
+  --status-info:    #58A6FF;
+
+  /* Elevation / Shadows */
+  --shadow-xs: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.5);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.55);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.65);
+  --shadow-canvas: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+
+  /* Radius System */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* Spacing Scale (4px base) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+
+  /* Transitions — purposeful, never decorative */
+  --t-fast:   120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-smooth: 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  --t-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Legacy compat aliases */
+  --accent-primary:        var(--accent);
+  --accent-primary-hover:  var(--accent-hover);
+  --accent-primary-glow:   var(--accent-glow);
+  --accent-purple:         var(--accent-ai);
+  --bg-glass-elevated:     var(--bg-panel-elevated);
+  --transition-fast:       var(--t-fast);
+  --transition-normal:     var(--t-normal);
+  --transition-smooth:     var(--t-smooth);
+  --border-focus:          var(--accent);
+  --border-glow:           var(--accent-glow);
+  --shadow-glow-blue:      0 0 20px var(--accent-glow);
+  --shadow-glow-purple:    0 0 20px var(--accent-ai-glow);
+  --accent-cyan:           #58A6FF;
+  --accent-amber:          #D29922;
+  --accent-emerald:        #3FB950;
+  --accent-pink:           #F78166;
+  --grad-hero:             linear-gradient(135deg, var(--accent) 0%, var(--accent-ai) 100%);
+  --grad-surface:          linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  --grad-card:             linear-gradient(160deg, var(--bg-panel-elevated) 0%, var(--bg-panel) 100%);
+  --grad-unlock:           linear-gradient(135deg, var(--accent-subtle) 0%, var(--accent-ai-subtle) 100%);
+}
+
+/* ── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-workspace);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  user-select: none;
+}
+
+/* ── CUSTOM SCROLLBAR ────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── FORM ELEMENTS ───────────────────────────────────────── */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: all var(--t-fast);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── CANVAS WORKSPACE BACKGROUND ────────────────────────── */
+.studio-canvas-bg {
+  background-color: var(--bg-workspace);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* ── SURFACE UTILITIES ───────────────────────────────────── */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-elevated {
+  background: var(--bg-panel-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+/* ══════════════════════════════════════════════════════════
+   PREMIUM CUSTOM CONTROLS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── EDV INPUT ───────────────────────────────────────────── */
+.edv-input {
+  background: var(--bg-workspace);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  font-size: 12px;
+  color: var(--text-primary);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  width: 100%;
+}
+
+.edv-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+.edv-input::placeholder { color: var(--text-muted); }
+
+/* ── NUMBER INPUT ────────────────────────────────────────── */
+.edv-number {
+  background: var(--bg-workspace);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  text-align: right;
+  width: 100%;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  /* Hide arrows */
+  -moz-appearance: textfield;
+}
+.edv-number::-webkit-inner-spin-button,
+.edv-number::-webkit-outer-spin-button { -webkit-appearance: none; }
+.edv-number:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-subtle);
+}
+
+/* ── PREMIUM SLIDER ──────────────────────────────────────── */
+.edv-slider-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edv-slider-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.edv-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.edv-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  border: 2px solid var(--accent);
+}
+
+.edv-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid var(--accent);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  cursor: pointer;
+}
+
+.edv-slider:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--accent-subtle), 0 1px 4px rgba(0,0,0,0.6);
+}
+
+.edv-slider::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.edv-slider-value {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  min-width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── SECTION HEADER ──────────────────────────────────────── */
+.edv-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-3);
+}
+
+/* ── BUTTON SYSTEM ───────────────────────────────────────── */
+.edv-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+}
+.edv-btn-primary:hover  { background: var(--accent-hover); box-shadow: 0 4px 12px var(--accent-glow); }
+.edv-btn-primary:active { transform: scale(0.97); background: var(--accent-pressed); }
+
+.edv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-panel-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+.edv-btn-secondary:hover { background: var(--bg-panel-hover); border-color: var(--border-strong); }
+
+.edv-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+.edv-btn-ghost:hover { color: var(--text-primary); background: var(--bg-panel-hover); }
+
+/* ── AI ACTION CARD ──────────────────────────────────────── */
+.edv-ai-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color var(--t-fast), background var(--t-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.edv-ai-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-ai-subtle), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--t-normal);
+  pointer-events: none;
+}
+
+.edv-ai-card:hover {
+  border-color: var(--accent-ai);
+  background: var(--bg-panel-elevated);
+}
+
+.edv-ai-card:hover::before { opacity: 1; }
+
+/* ── FLAGSHIP FEATURE CARD ───────────────────────────────── */
+.edv-hero-card {
+  background: linear-gradient(135deg, var(--bg-panel-elevated) 0%, var(--bg-panel) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-4);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.edv-hero-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-subtle), var(--shadow-sm);
+}
+
+.edv-hero-card.ai {
+  border-color: var(--border-medium);
+}
+
+.edv-hero-card.ai:hover {
+  border-color: var(--accent-ai);
+  box-shadow: 0 0 0 1px var(--accent-ai-subtle), var(--shadow-sm);
+}
+
+/* ── LEFT TOOLBAR TOOL BUTTON ────────────────────────────── */
+.edv-tool-btn {
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--t-fast), background var(--t-fast);
+  text-align: center;
+}
+
+.edv-tool-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-panel-hover);
+}
+
+.edv-tool-btn.active {
+  color: var(--text-primary);
+  background: var(--bg-active);
+}
+
+.edv-tool-btn--md { padding: 9px 10px; gap: 4px; }
+.edv-tool-btn--md .edv-tool-btn__label { font-size: 9px; font-weight: 700; line-height: 1.1; }
+
+.edv-tool-btn--sm { padding: 6px 6px; gap: 2px; }
+.edv-tool-btn--sm .edv-tool-btn__label { font-size: 8px; font-weight: 600; letter-spacing: 0.02em; }
+
+.edv-tool-btn[data-active="true"] {
+  color: var(--accent);
+}
+
+.edv-tool-btn__icon { display: flex; align-items: center; justify-content: center; }
+.edv-tool-btn__label { word-break: break-word; }
+
+.edv-tool-btn[data-active="true"] .edv-tool-btn__icon { color: var(--accent); }
+
+/* ── RIGHT PANEL TABS ────────────────────────────────────── */
+.edv-tab-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-panel);
+}
+
+.edv-tab {
+  flex: 1;
+  padding: 10px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color var(--t-fast), border-color var(--t-fast);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.edv-tab:hover { color: var(--text-secondary); }
+
+.edv-tab.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes edv-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes edv-slide-in-left {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes edv-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes edv-pulse-accent {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.animate-fade-in     { animation: edv-fade-in     var(--t-smooth) both; }
+.animate-slide-left  { animation: edv-slide-in-left var(--t-smooth) both; }
+.animate-pulse       { animation: edv-pulse-accent 1.6s ease-in-out infinite; }
+
+/* AI shimmer effect during processing */
+.edv-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-panel-elevated) 25%,
+    var(--bg-panel-hover)    50%,
+    var(--bg-panel-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: edv-shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── TOPOLOGY (z-index) ──────────────────────────────────── */
+/* Topbar: 100, Toolbar: 80, ToolTray: 70, RightPanel: 60, StatusBar: 50, Modals: 200, Toast: 300 */
+
+/* ── PANEL SECTION SPACING ───────────────────────────────── */
+.edv-panel-section {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.edv-panel-section:last-child { border-bottom: none; }
+
+/* ── LAYER ROW ───────────────────────────────────────────── */
+.edv-layer-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+
+.edv-layer-row:hover     { background: var(--bg-panel-hover); }
+.edv-layer-row.selected  { background: var(--bg-active); }
+
+/* ── TOOLTIP BASE ────────────────────────────────────────── */
+[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-panel-elevated);
+  color: var(--text-primary);
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-medium);
+  pointer-events: none;
+  z-index: 999;
+  box-shadow: var(--shadow-sm);
+}
