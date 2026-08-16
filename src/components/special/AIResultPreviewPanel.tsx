@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { AIToolResult } from '../../algorithms/aiProcessors';
-import { CheckCircle2, X, Sparkles, Image as ImageIcon, Copy, Check } from 'lucide-react';
+import { CheckCircle2, X, Sparkles, Image as ImageIcon } from 'lucide-react';
 
 export interface AIResultPreviewPanelProps {
   result: AIToolResult;
@@ -19,8 +19,6 @@ export const AIResultPreviewPanel: React.FC<AIResultPreviewPanelProps> = ({
   onApply,
   onCancel,
 }) => {
-  const [copied, setCopied] = useState(false);
-
   const previewSrc = result.previewUrl || (result.modifiedLayer && 'src' in result.modifiedLayer
     ? (result.modifiedLayer as any).src
     : result.newLayers && result.newLayers.length > 0
@@ -28,23 +26,6 @@ export const AIResultPreviewPanel: React.FC<AIResultPreviewPanelProps> = ({
       : undefined);
 
   const hasTextLayers = result.newLayers?.some((l) => l.type === 'text');
-  const extractedText = hasTextLayers
-    ? result.newLayers!
-        .filter((l) => l.type === 'text')
-        .map((l) => ('text' in l ? l.text : ''))
-        .join('\n')
-    : '';
-
-  const handleCopyText = async () => {
-    if (!extractedText) return;
-    try {
-      await navigator.clipboard.writeText(extractedText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      setCopied(false);
-    }
-  };
 
   return (
     <div
@@ -117,28 +98,6 @@ export const AIResultPreviewPanel: React.FC<AIResultPreviewPanelProps> = ({
             <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Extracted text
             </span>
-            <button
-              type="button"
-              onClick={handleCopyText}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-                marginLeft: '8px',
-                fontSize: '10px',
-                fontWeight: 600,
-                color: copied ? 'var(--status-success)' : 'var(--text-secondary)',
-                cursor: 'pointer',
-                padding: '1px 6px',
-                borderRadius: 'var(--radius-xs)',
-                border: '1px solid var(--border-medium)',
-                background: 'var(--bg-panel)',
-                transition: 'color var(--t-fast), border-color var(--t-fast)',
-              }}
-            >
-              {copied ? <Check size={10} /> : <Copy size={10} />}
-              {copied ? 'Copied' : 'Copy'}
-            </button>
             <div style={{ marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
               {result.newLayers!
                 .filter((l) => l.type === 'text')
