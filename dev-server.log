@@ -14,3 +14,6 @@
  ○ Compiling / ...
  ✓ Compiled / in 8.5s (613 modules)
  GET / 200 in 214ms
+ ○ Compiling /api/ai/remove-background ...
+ ✓ Compiled /api/ai/remove-background in 936ms (332 modules)
+ POST /api/ai/remove-background 400 in 1184ms
